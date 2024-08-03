@@ -1,0 +1,32 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "docker-build",
+			"label": "docker-build",
+			"platform": "python",
+			"dockerBuild": {
+				"tag": "lorencinitestes:latest",
+				"dockerfile": "${workspaceFolder}/<seu_caminho_para_o_dockerfile>/Dockerfile",
+				"context": "${workspaceFolder}/<seu_caminho_para_o_contexto>",
+				"pull": true
+			}
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: debug",
+			"dependsOn": [
+				"docker-build"
+			],
+			"python": {
+				"args": [
+					"<seus_argumentos_cli_python>",
+					"arg2",
+					"--musan_folder=arg3",
+					"--commonlanguage_folder=arg4"
+				],
+				"file": "<caminho_para_o_arquivo_a_ser_executado>/train.py"
+			}
+		}
+	]
+}
